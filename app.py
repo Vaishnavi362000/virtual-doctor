@@ -1,6 +1,9 @@
 import gradio as gr
 import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 from brain_of_doctor import analyze_image_with_query, encode_image
 from voice_of_patient import record_audio, transcribe_with_groq
@@ -51,11 +54,13 @@ iface = gr.Interface(
     outputs=[
         gr.Textbox(label="Speech to Text"),
         gr.Textbox(label="Doctor's Response"),
-        gr.Audio("Temp.mp3"),
+        gr.Audio("Final_response.mp3"),
     ],
     title="Virtual Doctor",
     description="Ask the doctor anything about your health",
 )
 
-iface.launch(debug=True)
+# Get port from environment variable for Render deployment
+port = int(os.environ.get("PORT", 7860))
+iface.launch(server_name="0.0.0.0", server_port=port, debug=True)
 

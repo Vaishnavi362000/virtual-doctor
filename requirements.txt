@@ -1,0 +1,8 @@
+gradio>=4.0.0
+openai
+groq
+requests
+python-dotenv
+pillow
+elevenlabs
+gtts 
